@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+
+@include('calendar.modalbooking')
 <div id="calendar"></div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -12,10 +14,17 @@
             center: 'title'
         },
         slotDuration: '00:10:00',
-        defaultDate: '2023-02-22',
+        defaultDate: '2017-01-01',
         editable: true,
-        events: [ { title: 'All Day Event', start: '2023-02-20' },
-                   { title: 'Long Event', start: '2023-02-22', end: '2023-02-23' } ]
+        events: '{{ route('calendar.json') }}',
+        dateClick: function(info) {
+          document.getElementById('starttime').value = info.date.toISOString().substring(11, 16);
+          document.getElementById('bookingDate').value = info.date.toISOString().substring(0, 10);
+          var modalElement = document.getElementById('fullCalModal');
+          var modal = new bootstrap.Modal(modalElement);
+          modal.show();
+        },
+        
       });
      calendar.render();
   });
