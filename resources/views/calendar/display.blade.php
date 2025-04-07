@@ -24,7 +24,7 @@
           var modal = new bootstrap.Modal(modalElement);
           modal.show();
         },
-        
+
       });
      calendar.render();
   });
